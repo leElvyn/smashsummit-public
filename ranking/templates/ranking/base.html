@@ -1,0 +1,47 @@
+{% load static %}
+{% load ranking_extras %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'ranking/logoserver.png' %}">
+    <title>{% block title %}Ranking {% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'ranking/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <div class="topnav" id="theTopnav">
+    {% block topnav %}
+        <a href="">Le serveur</a>
+        {% block topnav_members %}<a href="{% url 'member_ranking'%}">Membres</a>{% endblock topnav_members %}
+        {% block topnav_teams %}<a href="{% url 'teams_ranking' %}">Teams</a>{% endblock topnav_teams %}
+        <a href="{% url 'discord_invite'%}">Rejoindre</a>
+        <a href="javascript:void(0);" class="icon" onclick="respTopnav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    {% endblock topnav %}
+    </div>
+    {% block content %}
+    {% endblock content %}
+    <footer class="footer">
+        {% block footer %}
+        <div class="footerText">
+            <div><a href="/admin/">Admin</a><br></div>
+            <div class="creators">
+                Créé avec amour par red et Lowrd
+            </div>
+        </div>
+        {% endblock footer %}
+    </footer>
+
+</body>
+{% block script %}
+{% endblock script %}
+</html>

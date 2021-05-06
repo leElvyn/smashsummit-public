@@ -1,0 +1,125 @@
+{% extends 'ranking/base.html' %}
+{% load static %}
+{% load ranking_extras %}
+
+
+<body>
+        {% block topnav %}
+        <a href="">Le serveur</a>
+        <a class="active" href="{% url 'member_ranking'%}">Membres</a>
+        <a href="{% url 'teams_ranking' %}">Teams</a>
+        <a href="{% url 'discord_invite'%}">Rejoindre</a>
+        <a href="javascript:void(0);" class="icon" onclick="respTopnav()">
+            <i class="fa fa-bars"></i>
+        </a>
+            <div class="search">
+        <input id="searchBox" class="searchBox" type="search" onkeyup="executeSearch()" placeholder="Recherchez un joueur ..">
+    </div>
+    {% endblock topnav %}
+    {% block content %}
+
+    <!-- partial:index.partial.html -->
+    <div class="RankingHeader">
+        <img src="{% static 'ranking/logoserver.png' %}" alt="logo du smashsummit" class="serverlogo">
+        <p class="serverName">
+            Classement des membres du SmashSummit
+        </p>
+    </div>
+    <div class="ranking">
+    <span id="failMessage" style="display:none">
+    Aucun joueur avec ce nom
+    </span>
+        <!-- partial -->
+        {% for member in memberList %}
+        <div class="RankingMember">
+            <div class="LeftContainer">
+                <div id="RankingMemberRank {{member.user_id}}">
+                    <div class="RankingMemberRank" , id="RankingMemberRank{{forloop.counter}}">{{forloop.counter}}</div>
+                </div> 
+                <div class="RankingMemberAvatar">
+                    <img src="{{ member.PP_link }}" alt="Avatar" class="avatar">
+                </div>
+                <div class="LeftContainerInline">
+                    <div class="RankingMemberName">
+                        {{ member.last_known_name }}
+                    </div>
+                    <div class="MemberBadges">
+                    {% autoescape off %}
+                    {{ member|return_badges}}
+                    {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="RightContainer">
+                <div class="RankingMemberStatus">
+                {% if member.is_winning %}
+                <svg style="fill: #07e843" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve"><g><g id="_x36__2_"><g><path d="M306,0C137.012,0,0,136.992,0,306s137.012,306,306,306c169.008,0,306-137.012,306-306S475.008,0,306,0z M431.001,316.231c-7.478,7.479-19.584,7.479-27.043,0l-78.833-78.813v202.457c0,10.557-8.568,19.125-19.125,19.125c-10.557,0-19.125-8.568-19.125-19.125V237.418l-78.814,78.813c-7.478,7.479-19.584,7.479-27.043,0c-7.478-7.478-7.478-19.583,0-27.042l108.19-108.19c4.571-4.571,10.863-6.005,16.792-4.953c5.929-1.052,12.221,0.382,16.811,4.953l108.19,108.19C438.46,296.667,438.46,308.773,431.001,316.231z"/></g></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                {% elif member.is_winning == False %}
+                <svg style="transform: rotate(180deg);fill: #e80707;" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="30px" height="30px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve"><g><g id="_x36__2_"><g><path d="M306,0C137.012,0,0,136.992,0,306s137.012,306,306,306c169.008,0,306-137.012,306-306S475.008,0,306,0z M431.001,316.231c-7.478,7.479-19.584,7.479-27.043,0l-78.833-78.813v202.457c0,10.557-8.568,19.125-19.125,19.125c-10.557,0-19.125-8.568-19.125-19.125V237.418l-78.814,78.813c-7.478,7.479-19.584,7.479-27.043,0c-7.478-7.478-7.478-19.583,0-27.042l108.19-108.19c4.571-4.571,10.863-6.005,16.792-4.953c5.929-1.052,12.221,0.382,16.811,4.953l108.19,108.19C438.46,296.667,438.46,308.773,431.001,316.231z"/></g></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+                {%else%}
+                 <svg width="30" height="10" style='fill:grey;'> <rect width="30" height="10"> </svg>
+                {%endif%}
+                </div>
+                <div class="RankingMemberTeam">
+                    <p class="RankingMemberTeamInfo">TEAM</p>
+                    <p class="RankingMemberTeamStat">{{ member|get_team_short }}</p>
+                </div>
+                <div class="RankingMemberTournaments">
+                    <p class="RankingMemberTournamentsInfo">TOURNOIS</p>
+                    <p class="RankingMemberTournamentsStat">{{ member.tournaments }}</p>
+                </div>
+                <div class="RankingMemberPoints">
+                    <p class="RankingMemberPointsInfo">POINTS</p>
+                    <p class="RankingMemberPointsStat">{{ member.points }}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+
+    </div>
+    {% endblock content %}
+    <footer class="footer">
+        <div class="footerText">
+            <div><a href="/admin/">Admin</a><br></div>
+            <div class="creators">
+                Créé avec amour par red et Lowrd
+            </div>
+        </div>
+    </footer>
+</body>
+{% block script %}
+<script>
+    function respTopnav() {
+        var x = document.getElementById("theTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+    function executeSearch() {
+        var items = document.getElementsByClassName('RankingMember');
+        var input = document.getElementById('searchBox');
+        var filter = input.value.toLowerCase();
+        var count = 0;
+        for (i = 0; i < items.length; i++) {
+            var txtValue = items.item(i).getElementsByClassName('RankingMemberName').item(0).innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                items.item(i).style.display = "";
+                count ++;
+            } else {
+                items.item(i).style.display = "none";
+            }
+        }
+        if (count==0) {
+            console.log(":D")
+            document.getElementById('failMessage').style.display = "";
+        }
+        else {
+            document.getElementById('failMessage').style.display = "none";
+
+        }
+    }
+</script>
+{% endblock script %}
+</html>

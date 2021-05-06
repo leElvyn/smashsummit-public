@@ -1,0 +1,17 @@
+/ranking/__pycache__/
+/smashsummit/__pycache__/
+/oauth/__pycache__/
+/.vscode
+/ranking/templatetags/__pycache__/
+db/db.sqlite3
+db/db.sqllite3
+/raning/migrations/__pycache__/
+/oauth/migrations/__pycache__/
+.DS_Store
+ranking/migrations/__pycache__/
+static/
+
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class

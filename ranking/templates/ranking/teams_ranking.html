@@ -1,0 +1,90 @@
+  {% load static %}
+  {% load ranking_extras %}
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="icon" href="{% static 'ranking/logoserver.png' %}">
+  <title>Ranking</title>
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'ranking/style.css' %}"> 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/c92e2f0925.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="topnav" id="theTopnav">
+    <a href="">Le serveur</a>
+    <a href="{% url 'member_ranking'%}">Membres</a>
+    <a class="active" href="{% url 'teams_ranking' %}">Teams</a>
+    <a href="#invite">Rejoindre</a>
+    <a href="javascript:void(0);" class="icon" onclick="respTopnav()">
+        <i class="fa fa-bars"></i>
+    </a>
+</div> 
+<!-- partial:index.partial.html -->
+<div class="RankingHeader">
+    <img src="{% static 'ranking/logoserver.png' %}" alt="logo du smashsummit" class="serverlogo">
+    <p class="serverName">
+        Classement des Teams du SmashSummit 
+    </p>
+</div>
+<div class="rankingTeam">
+    <!-- partial -->
+    {% for team in teamsList %}
+    <div class="RankingTeam">
+        <div class="LeftContainer">
+            <div id="RankingMemberRank {{team.id}}">
+              <div class="RankingMemberRank" , id="RankingMemberRank{{forloop.counter}}">{{forloop.counter}}</div>
+            </div>
+            <div class="RankingTeamName">
+                {{ team.name }}
+            </div>
+            {% if team.id == 0 %}
+            <div class="vanillaLogo">
+              <div class="BadgeVanilla Badge">
+                <svg id="Capa_1" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><path d="m256.632 509.128-1.457 2.872h52.054c2.47 0 4.589-1.764 5.036-4.193l11.934-64.83-3.153 1.738z" fill="#d88a55"/></g><path d="m284.378 350.349 6.815-8.229h-35.111l-5.781 4.366-66.183 66.183-5.122 6.536 5.459 29.653 8.278-6.865z" fill="#d88a55"/><g><path d="m312.406 342.12-5.281 3.867-116.466 116.465-2.907 4.321 5.459 29.654 5.194-3.78 138.168-138.168 5.117-6.532 1.073-5.827z" fill="#d88a55"/></g><path d="m232.315 346.088 2.554-3.968h-70.062l10.891 59.17 5.053-3.639z" fill="#d88a55"/><g><path d="m202.63 506.806-3.592 5.006c.42.111.852.188 1.303.188h33.62l3.767-2.353 88.635-88.635 2.62-4.034 7.921-43.033-5.758 4.344z" fill="#d88a55"/></g></g><path d="m238.357 507.807-30.315-164.687h-43.051l30.315 164.687c.447 2.429 2.565 4.193 5.036 4.193h43.051c-2.47 0-4.589-1.764-5.036-4.193z" fill="#c57a44"/><path d="m234.869 342.12-59.171 59.17 3.298 17.915 77.086-77.085z" fill="#ea9b58"/><path d="m291.193 342.12-106.738 106.738 3.297 17.915 124.654-124.653z" fill="#f6a96c"/><path d="m341.69 347.947-148.48 148.479 2.095 11.38c.366 1.986 1.855 3.509 3.733 4.005l137.866-137.866z" fill="#ea9b58"/><path d="m255.175 512 69.023-69.023 4.785-25.998-95.021 95.021z" fill="#f6a96c"/></g><path d="m355.252 304.179h-198.504c-3.216 0-6.332-.431-9.301-1.226v35.047c0 2.828 2.292 5.12 5.12 5.12h206.864c2.828 0 5.12-2.292 5.12-5.12v-35.047c-2.967.795-6.083 1.226-9.299 1.226z" fill="#f6a96c"/><path d="m189.882 304.179h132.237v38.941h-132.237z" fill="#ea9b58"/><path d="m234.29 304.179h43.421v38.941h-43.421z" fill="#f6a96c"/><g><path d="m202.609 100.83h106.781c.438 0 .872.018 1.307.033.034-.797.062-1.597.062-2.402 0-15.581-6.518-29.631-16.964-39.603 7.042-30.176-22.848-73.386-26.365-54.045-2.36 12.979-14.893 26.63-25.117 35.887-4.698 4.254-9.873 7.912-15.251 11.265-16.134 10.062-26.646 28.287-25.766 48.898.438-.015.874-.033 1.313-.033z" fill="#ffe5c2"/><path d="m202.609 99.83h31.542c2.717-15.619 12.05-28.966 25.008-37.047 5.377-3.354 10.553-7.012 15.25-11.265 6.008-5.44 12.812-12.398 17.882-19.845-6.332-22.516-22.345-40.696-24.861-26.858-2.36 12.979-14.893 26.63-25.117 35.887-4.698 4.253-9.873 7.912-15.25 11.265-15.873 9.899-26.304 27.699-25.799 47.899.448-.018.894-.036 1.345-.036z" fill="#fed2a4"/><path d="m180.746 166.542h150.507c9.14-6.746 15.1-17.583 15.1-29.749 0-20.33-16.633-36.963-36.963-36.963h-106.781c-20.329 0-36.963 16.633-36.963 36.963.001 12.165 5.96 23.003 15.1 29.749z" fill="#fff3de"/><g><path d="m179.455 165.542h42.965c-8.405-6.79-13.809-17.167-13.809-28.749 0-20.33 16.633-36.963 36.963-36.963h-42.965c-20.33 0-36.963 16.633-36.963 36.963.001 11.582 5.404 21.958 13.809 28.749z" fill="#ffe5c2"/></g><path d="m154.811 232.307c.642-.034 1.287-.054 1.937-.054h198.504c.65 0 1.295.019 1.937.054 9.183-6.742 15.175-17.604 15.175-29.803 0-20.33-16.633-36.963-36.963-36.963h-158.803c-20.33 0-36.963 16.633-36.963 36.963.001 12.199 5.994 23.061 15.176 29.803z" fill="#ffe5c2"/><path d="m153.626 231.396c1.031-.087 2.07-.143 3.123-.143h50.312c-8.405-6.79-13.809-17.167-13.809-28.749 0-20.329 16.633-36.963 36.963-36.963h-53.616c-20.329 0-36.963 16.633-36.963 36.963 0 11.665 5.482 22.105 13.99 28.892z" fill="#fed2a4"/><g><path d="m355.252 305.179h-198.504c-20.33 0-36.963-16.633-36.963-36.963 0-20.33 16.633-36.963 36.963-36.963h198.504c20.33 0 36.963 16.633 36.963 36.963 0 20.33-16.633 36.963-36.963 36.963z" fill="#fff3de"/></g><g><path d="m173.586 268.216c0-20.33 16.633-36.963 36.963-36.963h-53.8c-20.33 0-36.963 16.633-36.963 36.963 0 20.329 16.633 36.963 36.963 36.963h53.8c-20.33 0-36.963-16.633-36.963-36.963z" fill="#ffe5c2"/></g></g></g></svg>
+                <span class="tooltiptext">
+                  Ceci est la team vanilla, que vous pouvez rejoindre si vous n'avez pas de team avec la commande !vanilla
+                </span>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="RightContainer">
+            <div class="RankingMemberTournaments">
+                <p class="RankingMemberTournamentsInfo">TAG</p>
+                <p class="RankingMemberTournamentsStat">{{ team.short_name }}</p>
+            </div>
+            <div class="RankingMemberPoints">
+                <p class="RankingMemberPointsInfo">POINTS</p>
+                <p class="RankingMemberPointsStat">{{ team.team_points }}</p>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+
+    </div>
+      <footer class="footer">
+    <div class="footerText">
+    <div><a href="/admin/">Admin</a><br></div>
+    <div class="creators">
+    Créé avec amour par red et Lowrd
+    </div>
+    </div>
+    </footer>
+</body>
+<script>
+function respTopnav() {
+  var x = document.getElementById("theTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+} 
+</script>
+</html>
